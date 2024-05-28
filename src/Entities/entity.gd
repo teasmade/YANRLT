@@ -9,6 +9,13 @@ var map_data: MapData
 var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
 
+enum EntityType {CORPSE, ITEM, ACTOR}
+
+var type: EntityType:
+	set(value):
+		type = value
+		z_index = type
+
 var grid_position: Vector2i:
 	set(value):
 		grid_position = value
@@ -16,6 +23,7 @@ var grid_position: Vector2i:
 		
 func set_entity_type(entity_definition: EntityDefinition) -> void:
 	_definition = entity_definition
+	type = _definition.type
 	blocks_movement = _definition.is_blocking_movement
 	entity_name = _definition.name
 	texture = entity_definition.texture

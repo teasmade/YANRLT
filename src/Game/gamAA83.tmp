@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bceyd68qs45ro"]
+[gd_scene load_steps=7 format=3 uid="uid://bceyd68qs45ro"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_oobm1"]
-[ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_8dpsk"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/main_game_input_handler.gd" id="2_137s7"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/game_over_input_handler.gd" id="3_12udt"]
 [ext_resource type="Script" path="res://src/Map/map.gd" id="3_uvtxx"]
@@ -12,7 +11,6 @@
 script = ExtResource("1_oobm1")
 
 [node name="InputHandler" type="Node" parent="."]
-script = ExtResource("2_8dpsk")
 
 [node name="MainGameInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("2_137s7")
