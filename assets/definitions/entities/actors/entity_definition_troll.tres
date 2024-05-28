@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://dcoyrd7lacmbd"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=6 format=3 uid="uid://dcoyrd7lacmbd"]
 
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_gywp0"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_x2hp5"]
 [ext_resource type="Texture2D" uid="uid://3iswbg8gaw7p" path="res://assets/images/monochrome_packed.png" id="2_ph0ve"]
+
+[sub_resource type="Resource" id="Resource_ed5mk"]
+script = ExtResource("1_x2hp5")
+max_hp = 16
+power = 4
+defense = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ko48"]
 atlas = ExtResource("2_ph0ve")
@@ -13,3 +20,5 @@ name = "Troll"
 texture = SubResource("AtlasTexture_1ko48")
 color = Color(0, 0.498039, 0, 1)
 is_blocking_movement = true
+fighter_definition = SubResource("Resource_ed5mk")
+ai_type = 1

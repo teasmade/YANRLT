@@ -36,7 +36,7 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 
 
 func generate_dungeon(player: Entity) -> MapData:
-	var dungeon := MapData.new(map_width, map_height)
+	var dungeon := MapData.new(map_width, map_height, player)
 	dungeon.entities.append(player)
 
 	var rooms: Array[Rect2i] = []
@@ -71,6 +71,7 @@ func generate_dungeon(player: Entity) -> MapData:
 				
 		rooms.append(new_room)
 	
+	dungeon.setup_pathfinding()
 	return dungeon
 
 func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> void:
