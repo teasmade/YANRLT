@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bceyd68qs45ro"]
+[gd_scene load_steps=20 format=3 uid="uid://bceyd68qs45ro"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_oobm1"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_8dpsk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_mvca0"]
 [ext_resource type="Texture2D" uid="uid://3iswbg8gaw7p" path="res://assets/images/monochrome_packed.png" id="8_k5bqp"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_86hsp"]
+[ext_resource type="Script" path="res://src/GUI/mouseover_checker.gd" id="9_r2bu0"]
 [ext_resource type="FontFile" uid="uid://qefh7h8v33pk" path="res://assets/fonts/Kenney Pixel.ttf" id="9_xjb3a"]
 [ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_b6opv"]
 
@@ -35,6 +36,9 @@ bg_color = Color(0, 0.498039, 0, 1)
 font = ExtResource("9_xjb3a")
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w47wh"]
+font = ExtResource("9_xjb3a")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7oeme"]
 content_margin_left = 8.0
@@ -107,6 +111,9 @@ script = ExtResource("5_mvca0")
 
 [node name="Entities" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 
+[node name="MouseoverChecker" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
+script = ExtResource("9_r2bu0")
+
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 zoom = Vector2(1.5, 1.5)
 
@@ -142,6 +149,11 @@ label_settings = SubResource("LabelSettings_8cyvx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MouseoverLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+label_settings = SubResource("LabelSettings_w47wh")
+
 [node name="MessagesPanel" type="PanelContainer" parent="VBoxContainer/InfoBar"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -160,3 +172,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
+[connection signal="entities_focussed" from="VBoxContainer/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
