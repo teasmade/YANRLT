@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bceyd68qs45ro"]
+[gd_scene load_steps=18 format=3 uid="uid://bceyd68qs45ro"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_oobm1"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_8dpsk"]
@@ -6,10 +6,12 @@
 [ext_resource type="Script" path="res://src/Game/EventHandlers/game_over_input_handler.gd" id="3_12udt"]
 [ext_resource type="Script" path="res://src/Map/map.gd" id="3_uvtxx"]
 [ext_resource type="Script" path="res://src/Map/dungeon_generator.gd" id="4_mrgiv"]
+[ext_resource type="Script" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_3w20v"]
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_mvca0"]
 [ext_resource type="Texture2D" uid="uid://3iswbg8gaw7p" path="res://assets/images/monochrome_packed.png" id="8_k5bqp"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_86hsp"]
 [ext_resource type="FontFile" uid="uid://qefh7h8v33pk" path="res://assets/fonts/Kenney Pixel.ttf" id="9_xjb3a"]
+[ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_b6opv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_susey"]
 content_margin_left = 8.0
@@ -70,8 +72,10 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
 disable_3d = true
+handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(1152, 536)
+render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
 script = ExtResource("1_oobm1")
@@ -84,6 +88,11 @@ script = ExtResource("2_137s7")
 
 [node name="GameOverInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("3_12udt")
+
+[node name="HistoryViewerInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+script = ExtResource("5_3w20v")
+messages_panel_path = NodePath("../../../../../InfoBar/MessagesPanel")
+message_log_path = NodePath("../../../../../InfoBar/MessagesPanel/MessageLog")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_uvtxx")
@@ -138,5 +147,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_7oeme")
+
+[node name="MessageLog" type="ScrollContainer" parent="VBoxContainer/InfoBar/MessagesPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_b6opv")
+
+[node name="MessageList" type="VBoxContainer" parent="VBoxContainer/InfoBar/MessagesPanel/MessageLog"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
